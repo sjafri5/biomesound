@@ -7,6 +7,7 @@ import ProcessingAnimation from "@/components/ProcessingAnimation";
 import BiomeDashboard from "@/components/BiomeDashboard";
 import AudioPlayer from "@/components/AudioPlayer";
 import GutViewer from "@/components/GutViewer";
+import HowItWorks from "@/components/HowItWorks";
 import { runPipeline, getAudioUrl, generateFromState, type BiomeState } from "@/lib/api";
 
 type AppState =
@@ -142,6 +143,9 @@ export default function Home() {
               </button>
             </div>
           )}
+
+          {/* How it works */}
+          <HowItWorks />
 
           {/* Subtle footer */}
           <p className="absolute bottom-6 text-[10px] text-muted/30 font-mono tracking-wider">
