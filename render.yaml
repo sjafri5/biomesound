@@ -5,6 +5,3 @@ services:
     dockerfilePath: backend/Dockerfile
     dockerContext: backend
     plan: free
-    envVars:
-      - key: PORT
-        value: 8000
