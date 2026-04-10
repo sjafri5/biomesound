@@ -20,6 +20,7 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [transitioning, setTransitioning] = useState(false);
   const [showSliders, setShowSliders] = useState(false);
+  const [waking, setWaking] = useState(false);
 
   // Smooth view transition helper
   const transitionTo = useCallback((newState: AppState) => {
@@ -47,9 +48,11 @@ export default function Home() {
     }, 4000);
 
     try {
-      const result = await runPipeline(file);
+      setWaking(false);
+      const result = await runPipeline(file, 30, undefined, () => setWaking(true));
       clearTimeout(phaseTimer1);
       clearTimeout(phaseTimer2);
+      setWaking(false);
 
       transitionTo({
         view: "result",
@@ -60,6 +63,7 @@ export default function Home() {
     } catch (err) {
       clearTimeout(phaseTimer1);
       clearTimeout(phaseTimer2);
+      setWaking(false);
       setError(err instanceof Error ? err.message : "Something went wrong");
       transitionTo({ view: "landing" });
     }
@@ -167,7 +171,14 @@ export default function Home() {
           </div>
 
           {/* Animation */}
-          <ProcessingAnimation phase={state.phase} />
+          <div className="flex flex-col items-center gap-4">
+            <ProcessingAnimation phase={state.phase} />
+            {waking && (
+              <p className="text-[11px] text-accent/60 font-mono animate-pulse text-center">
+                Waking up server — first request takes ~30s...
+              </p>
+            )}
+          </div>
         </div>
       </main>
     );
