@@ -25,11 +25,12 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
+        "https://biomenoise.vercel.app",
         "https://frontend-lemon-five-25.vercel.app",
         "https://frontend-hd4op2veb-raza-jafris-projects.vercel.app",
         "https://frontend-cuyibpx6q-raza-jafris-projects.vercel.app",
     ],
-    allow_origin_regex=r"https://frontend-.*-raza-jafris-projects\.vercel\.app",
+    allow_origin_regex=r"https://(frontend-.*-raza-jafris-projects|biomenoise(-[a-z0-9]+)?)\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
